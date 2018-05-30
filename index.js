@@ -1,4 +1,6 @@
 const express = require('express');
+const database = require('./controllers/DatabaseController.js');
+
 const app = express();
 
 app.get('*', (req, res) => {
