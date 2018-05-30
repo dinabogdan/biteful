@@ -1,0 +1,14 @@
+{
+  "name": "biteful",
+  "version": "1.0.0",
+  "description": "Some RESTful Biteful app for online food",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dina Bogdan",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.16.3"
+  }
+}
