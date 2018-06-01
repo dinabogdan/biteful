@@ -3,6 +3,8 @@ const database = require('./controllers/DatabaseController.js');
 
 const app = express();
 
+database.createDb();
+
 app.get('*', (req, res) => {
   res.send('Hello from the other side!');
 });

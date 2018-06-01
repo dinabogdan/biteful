@@ -1,6 +1,34 @@
 const Sequelize = require('sequelize');
 const config = require('config');
 
-var database = config.get('config.dbConfig');
+var dbConfig = config.get('config.dbConfig');
+const db = new Sequelize(dbConfig);
 
-console.log(database);
+var User = db.define('user', {
+  username: {
+    allowNull: false,
+    type: Sequelize.STRING
+  },
+  email: {
+    allowNull: false,
+    type: Sequelize.STRING,
+    validate: {
+      notEmpty: true,
+      isEmail: true
+    }
+  },
+  password: {
+    allowNull: false,
+    type: Sequelize.STRING
+  }
+});
+
+module.exports.createDb = function() {
+  db.sync()
+    .then(function () {
+        console.log('Database was created successfully!');
+    })
+    .catch(function (error) {
+      console.log('The following error was thrown during the creation of database: ' + error);
+    })
+};

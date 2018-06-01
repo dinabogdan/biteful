@@ -12,5 +12,9 @@
     "express": "^4.16.3",
     "mysql": "^2.15.0",
     "sequelize": "^4.37.10"
+  },
+  "dependencies": {
+    "config": "^1.30.0",
+    "mysql2": "^1.5.3"
   }
 }
