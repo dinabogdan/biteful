@@ -18,3 +18,10 @@ module.exports.buildErrorResponse = function(httpStatusCode, errorMessage) {
     'statusCode': httpStatusCode, 'errorMessage': errorMessage
   }
 };
+
+
+module.exports.buildOkResponse = function(response) {
+  return {
+    'statusCode': 200, 'response': response
+  }
+};

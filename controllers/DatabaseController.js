@@ -1,3 +1,4 @@
+'use strict'
 const Sequelize = require('sequelize');
 const config = require('config');
 
@@ -20,11 +21,12 @@ var User = db.define('user', {
   password: {
     allowNull: false,
     type: Sequelize.STRING
-  },
-  type: {
-    allowNull: false,
-    type: Sequelize.STRING
   }
+  // ,
+  // type: {
+  //   allowNull: false,
+  //   type: Sequelize.STRING
+  // }
 });
 
 module.exports.createDb = function() {
@@ -41,11 +43,10 @@ module.exports.createUser = function(user) {
   return User.create(user);
 };
 
-module.exports.findUserByEmailAndPassword = function(userEmail, userPassword) {
+module.exports.findUserByEmail = function(userEmail) {
   return User.find({
     where: {
-      email: userEmail,
-      password: userPassword
+      email: userEmail
     }
   });
 };
