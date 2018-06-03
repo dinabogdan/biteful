@@ -8,10 +8,7 @@ module.exports.login = function(req, res, next) {
      next (util.buildError(400, 'Wrong request body!'));
      return;
    }
-
   var user = req.body;
-  console.log(user);
-
   repo.findUserByEmail(user.email)
     .then(function(userFound) {
       if(userFound === null) {
@@ -33,4 +30,13 @@ module.exports.login = function(req, res, next) {
     });
 
     return;
-}
+};
+
+module.exports.signup = function(req, res, next) {
+  if(util.isUndefined(req.body.email, req.body.password, req.body.clientType)) {
+    next (util.buildError(400, 'Wrong request body!'));
+    return;
+  }
+
+  var newUser = req.body;
+};

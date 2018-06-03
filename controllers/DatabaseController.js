@@ -21,15 +21,15 @@ var User = db.define('user', {
   password: {
     allowNull: false,
     type: Sequelize.STRING
-  }
-  // ,
-  // type: {
-  //   allowNull: false,
-  //   type: Sequelize.STRING
-  // }
+  },
+   type: {
+     allowNull: false,
+     type: Sequelize.STRING
+   }
 });
 
 module.exports.createDb = function() {
+  {force: true}
   db.sync()
     .then(function () {
         console.log('Database was created successfully!');
