@@ -20,6 +20,10 @@ var User = db.define('user', {
   password: {
     allowNull: false,
     type: Sequelize.STRING
+  },
+  type: {
+    allowNull: false,
+    type: Sequelize.STRING
   }
 });
 
@@ -31,4 +35,17 @@ module.exports.createDb = function() {
     .catch(function (error) {
       console.log('The following error was thrown during the creation of database: ' + error);
     })
+};
+
+module.exports.createUser = function(user) {
+  return User.create(user);
+};
+
+module.exports.findUserByEmailAndPassword = function(userEmail, userPassword) {
+  return User.find({
+    where: {
+      email: userEmail,
+      password: userPassword
+    }
+  });
 };
