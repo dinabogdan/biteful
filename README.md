@@ -5,7 +5,7 @@ Current endpoints:
 
 1. Login endpoint: "/user/login"
 
-HTTP Method: POST;
+HTTP Method: POST
 Request payload: 
 
       {
