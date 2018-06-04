@@ -16,6 +16,7 @@ database.createDb();
 app.use(middleware.errorHandler);
 
 app.post('/user/login', authenticationController.login);
+app.put('/user/signup', authenticationController.signup);
 
 app.get('*', (req, res) => {
   res.send('Hello from the other side!');

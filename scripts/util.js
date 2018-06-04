@@ -1,5 +1,4 @@
 'use strict'
-
 module.exports.isUndefined = function() {
   if(arguments === undefined) {
     return true;
@@ -19,9 +18,12 @@ module.exports.buildErrorResponse = function(httpStatusCode, errorMessage) {
   }
 };
 
-
 module.exports.buildOkResponse = function(response) {
   return {
     'statusCode': 200, 'response': response
   }
+};
+
+module.exports.validatePassword = function(passwordPattern, password) {
+  return passwordPattern.test(password);
 };
