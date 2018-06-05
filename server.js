@@ -14,6 +14,9 @@ app.use(bodyParser.json());
 database.createDb();
 
 app.use(middleware.errorHandler);
+app.use(middleware.middlewareLogger);
+app.use(middleware.checkContentHeaders);
+app.use(middleware.checkBody);
 
 app.post('/user/login', authenticationController.login);
 app.put('/user/signup', authenticationController.signup);

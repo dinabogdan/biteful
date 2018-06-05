@@ -6,19 +6,19 @@ const passwordPattern = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.
 
 module.exports.login = function(req, res, next) {
    if(util.isUndefined(req.body.email, req.body.password)) {
-     next (util.buildError(400, 'Wrong request body!'));
+     next (util.buildErrorResponse(400, 'Wrong request body!'));
      return;
    }
   var user = req.body;
   repo.findUserByEmail(user.email)
     .then(function(userFound) {
       if(userFound === null) {
-        res.status(404).send(util.buildError(401, 'Wrong email address!'));
+        res.status(401).send(util.buildError(401, 'Wrong email address!'));
         return;
       }
 
       if(user.password !== userFound.password) {
-        res.status(404).send(util.buildError(401, 'Wrong password!'));
+        res.status(401).send(util.buildError(401, 'Wrong password!'));
         return;
       }
 
@@ -43,7 +43,7 @@ module.exports.signup = function(req, res, next) {
   var newUser = req.body;
 
   if(!util.validatePassword(passwordPattern, newUser.password)) {
-    next(util.buildErrorResponse(404, 'Wrong password!'));
+    res.status(401).send(util.buildErrorResponse(401, 'Wrong password!'));
     return;
   }
   console.log(newUser);
@@ -52,7 +52,7 @@ module.exports.signup = function(req, res, next) {
   repo.findUserByEmail(newUser.email)
       .then(function (user) {
         if(user !== null) {
-          next(util.buildErrorResponse(400, 'A user with the specified email already exists!'));
+          res.status(400).send(util.buildErrorResponse(400, 'A user with the specified email already exists!'));
           return;
         }
 
