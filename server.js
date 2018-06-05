@@ -5,6 +5,7 @@ const path = require('path');
 
 const database = require('./controllers/DatabaseController.js');
 const authenticationController = require('./controllers/AuthenticationController.js');
+const locationController = require('./controllers/LocationController.js');
 const middleware = require('./controllers/Middleware.js');
 
 const utils = require('./scripts/util.js');
@@ -20,6 +21,8 @@ app.use(middleware.checkBody);
 
 app.post('/user/login', authenticationController.login);
 app.put('/user/signup', authenticationController.signup);
+
+app.get('/locations', locationController.getLocations);
 
 app.get('*', (req, res) => {
   res.send('Hello from the other side!');

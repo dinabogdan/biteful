@@ -35,11 +35,11 @@ var Location = db.define('location', {
   },
   longitude: {
     allowNull: false,
-    type: Sequelize.DECIMAL
+    type: Sequelize.DECIMAL(8, 6)
   },
   latitude: {
     allowNull: false,
-    type: Sequelize.DECIMAL
+    type: Sequelize.DECIMAL(8, 6)
   },
   imageUrl: {
     allowNull: false,
