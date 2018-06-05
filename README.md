@@ -59,3 +59,41 @@ Error responses:
 
 - 401, 'Wrong password!';
 - 400, 'A user with the specified email already exists!';
+
+3. Locations endpoint: "/locations"
+HTTP Method: GET
+
+Response payload:
+[
+    {
+        "id": 1,
+        "name": "Unirii",
+        "longitude": "26.102538",
+        "latitude": "44.426767",
+        "imageUrl": "http://mancarebuna.files.wordpress.com/2012/07/phd-pizza-cluj.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Obor",
+        "longitude": "26.124029",
+        "latitude": "44.449927",
+        "imageUrl": "http://www.restograf.ro/wp-content/uploads/2010/12/Restaurant-pizzerie-Horoscop-la-Piata-Unirii-in-Bucuresti.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Berceni",
+        "longitude": "26.096710",
+        "latitude": "44.404864",
+        "imageUrl": "http://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE9kfemMjDt_B3ZefHPKijjkezh1gv71cyrJyWjpRdprA_iRWa"
+    },
+    {
+        "id": 4,
+        "name": "Victoriei",
+        "longitude": "26.085824",
+        "latitude": "44.452101",
+        "imageUrl": "http://www.restograf.ro/wp-content/uploads/2010/12/Buongiorno-Trattoria-2.jpg"
+    }
+]
+
+Error responses:
+-500, 'Internal Server Error';
