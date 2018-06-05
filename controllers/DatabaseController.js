@@ -28,6 +28,29 @@ var User = db.define('user', {
    }
 });
 
+var Location = db.define('location', {
+  name: {
+    allowNull: false,
+    type: Sequelize.STRING
+  },
+  longitude: {
+    allowNull: false,
+    type: Sequelize.DECIMAL
+  },
+  latitude: {
+    allowNull: false,
+    type: Sequelize.DECIMAL
+  },
+  imageUrl: {
+    allowNull: false,
+    type: Sequelize.STRING,
+    validate: {
+      notEmpty: true,
+      isUrl: true
+    }
+  }
+});
+
 module.exports.createDb = function() {
   {force: true}
   db.sync()
@@ -48,5 +71,11 @@ module.exports.findUserByEmail = function(userEmail) {
     where: {
       email: userEmail
     }
+  });
+};
+
+module.exports.findLocations = function() {
+  return Location.findAll({
+    attributes: ['id', 'name', 'longitude', 'latitude', 'imageUrl']
   });
 };
