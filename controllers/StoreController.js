@@ -22,11 +22,15 @@ module.exports.getStoreById = function(req, res, next) {
   }
   repo.findStoreById(storeId)
       .then(function(store) {
+        if(store === null || util.isUndefined(store)) {
+          res.status(404).send(util.buildErrorResponse(404, 'The store with the specified id was not found!'));
+          return;
+        }
         res.status(200).send(store);
       })
       .catch(function(err) {
         next(util.buildErrorResponse(500, 'Internal Server Error'));
         return;
-      })  
+      })
     return;
 };

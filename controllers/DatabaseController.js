@@ -74,11 +74,52 @@ var Store = db.define('store', {
   }
 });
 
+var Address = db.define('address', {
+  details: {
+    allowNull: false,
+    type: Sequelize.STRING
+  }
+});
+
+var Delivery = db.define('delivery');
+
 Store.hasOne(Location, {
   foreignKey: 'storeId'
 });
 
 Location.belongsTo(Store, {
+  foreignKey: 'storeId'
+});
+
+Address.hasMany(Delivery, {
+  foreignKey: 'addressId'
+});
+
+Delivery.belongsTo(Address, {
+  foreignKey: 'addressId'
+});
+
+User.hasMany(User, {
+  foreignKey: 'customerId'
+});
+
+Delivery.belongsTo(User, {
+  foreignKey: 'customerId'
+});
+
+User.hasMany(Delivery, {
+  foreignKey: 'courierId'
+});
+
+Delivery.belongsTo(User, {
+  foreignKey: 'courierId'
+});
+
+Store.hasMany(Delivery, {
+  foreignKey: 'storeId'
+});
+
+Delivery.belongsTo(Store, {
   foreignKey: 'storeId'
 });
 
@@ -135,3 +176,9 @@ module.exports.findStoreById = function(storeId) {
     }]
   });
 };
+
+module.exports.findAddresses = function() {
+  return Address.findAll({
+    attributes: ['id', 'details']
+  });
+}

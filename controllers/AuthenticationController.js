@@ -13,12 +13,12 @@ module.exports.login = function(req, res, next) {
   repo.findUserByEmail(user.email)
     .then(function(userFound) {
       if(userFound === null) {
-        res.status(401).send(util.buildError(401, 'Wrong email address!'));
+        res.status(401).send(util.buildErrorResponse(401, 'Wrong email address!'));
         return;
       }
 
       if(user.password !== userFound.password) {
-        res.status(401).send(util.buildError(401, 'Wrong password!'));
+        res.status(401).send(util.buildErrorResponse(401, 'Wrong password!'));
         return;
       }
 
