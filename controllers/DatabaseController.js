@@ -51,6 +51,37 @@ var Location = db.define('location', {
   }
 });
 
+var Store = db.define('store', {
+  name: {
+    allowNull: false,
+    type: Sequelize.STRING
+  },
+  logoUrl: {
+    allowNull: false,
+    type: Sequelize.STRING,
+    validate: {
+      notEmpty: true,
+      isUrl: true
+    }
+  },
+  pdfUrl: {
+    allowNull: false,
+    type: Sequelize.STRING,
+    validate: {
+      notEmpty: true,
+      isUrl: true
+    }
+  }
+});
+
+Store.hasOne(Location, {
+  foreignKey: 'storeId'
+});
+
+Location.belongsTo(Store, {
+  foreignKey: 'storeId'
+});
+
 module.exports.createDb = function() {
   {force: true}
   db.sync()
@@ -77,5 +108,30 @@ module.exports.findUserByEmail = function(userEmail) {
 module.exports.findLocations = function() {
   return Location.findAll({
     attributes: ['id', 'name', 'longitude', 'latitude', 'imageUrl']
+  });
+};
+
+module.exports.findStores = function() {
+  return Store.findAll({
+    attributes: ['id', 'name', 'logoUrl', 'pdfUrl'],
+    include: [{
+      model: Location,
+      required: true,
+      attributes: ['id', 'name', 'longitude', 'latitude', 'imageUrl']
+    }]
+  });
+};
+
+module.exports.findStoreById = function(storeId) {
+  return Store.find({
+    attributes: ['id', 'name', 'logoUrl', 'pdfUrl'],
+    where: {
+      id: storeId
+    },
+    include: [{
+      model: Location,
+      required: true,
+      attributes: ['id', 'name', 'longitude', 'latitude', 'imageUrl']
+    }]
   });
 };
