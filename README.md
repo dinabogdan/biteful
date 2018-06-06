@@ -97,3 +97,43 @@ Response payload:
 
 Error responses:
 -500, 'Internal Server Error';
+
+4. Stores endpoints
+
+-Get all stores: "/stores"
+HTTP Method: GET
+
+Response Payload:
+    [
+        {
+            "id": 1,
+            "name": "Store1",
+            "logoUrl": "http://www.google.com",
+            "pdfUrl": "http://www.google.com",
+            "location": {
+                "id": 1,
+                "name": "Location",
+                "longitude": "44.232521",
+                "latitude": "24.010101",
+                "imageUrl": "http://www.google.com"
+            }
+        }
+    ]
+
+-Get a store by a specified id: "/stores/{storeId}"
+HTTP Method: GET
+
+Response Payload:
+      {
+          "id": 1,
+          "name": "Store1",
+          "logoUrl": "http://www.google.com",
+          "pdfUrl": "http://www.google.com",
+          "location": {
+              "id": 1,
+              "name": "Location",
+              "longitude": "44.232521",
+              "latitude": "24.010101",
+              "imageUrl": "http://www.google.com"
+          }
+      }
