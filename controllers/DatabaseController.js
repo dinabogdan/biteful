@@ -99,21 +99,33 @@ Delivery.belongsTo(Address, {
   foreignKey: 'addressId'
 });
 
-User.hasMany(Delivery, {
-  foreignKey: 'customerId'
+// User.hasMany(Delivery, {
+//   foreignKey: 'customerId'
+// });
+//
+// Delivery.belongsTo(User, {
+//     foreignKey: 'customerId'
+// });
+//
+// User.hasMany(Delivery, {
+//   foreignKey: 'courierId'
+// });
+//
+// Delivery.belongsTo(User, {
+//   foreignKey: 'courierId'
+// });
+
+Delivery.hasOne(User, {
+  as: 'Customer',
+  foreignKey: 'deliveryId'
 });
 
-Delivery.belongsTo(User, {
-  foreignKey: 'customerId'
+Delivery.hasOne(User, {
+    as: 'Courier',
+    foreignKey: 'deliveryId'
 });
 
-User.hasMany(Delivery, {
-  foreignKey: 'courierId'
-});
-
-Delivery.belongsTo(User, {
-  foreignKey: 'courierId'
-});
+User.belongsTo(Delivery);
 
 Store.hasMany(Delivery, {
   foreignKey: 'storeId'
@@ -191,16 +203,18 @@ module.exports.findDeliveries = function() {
           required: true,
           attributes: ['id', 'details']
       },
-      // {
-      //     model: User,
-      //     attributes: ['id', 'username', 'type'],
-      //     required: true,
-      //     where: {
-      //       type: 'CLIENT_NORMAL'
-      //     }
-      // },
       {
           model: User,
+          as: 'Customer',
+          attributes: ['id', 'username', 'type'],
+          required: true,
+          where: {
+            type: 'CLIENT_NORMAL'
+          }
+      },
+      {
+          model: User,
+          as: 'Courier',
           attributes: ['id', 'username', 'type'],
           required: true,
           where: {
