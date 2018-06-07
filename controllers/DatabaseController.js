@@ -99,7 +99,7 @@ Delivery.belongsTo(Address, {
   foreignKey: 'addressId'
 });
 
-User.hasMany(User, {
+User.hasMany(Delivery, {
   foreignKey: 'customerId'
 });
 
@@ -181,4 +181,41 @@ module.exports.findAddresses = function() {
   return Address.findAll({
     attributes: ['id', 'details']
   });
-}
+};
+
+module.exports.findDeliveries = function() {
+  return Delivery.findAll({
+      attributes: ['id'],
+      include: [{
+          model: Address,
+          required: true,
+          attributes: ['id', 'details']
+      },
+      // {
+      //     model: User,
+      //     attributes: ['id', 'username', 'type'],
+      //     required: true,
+      //     where: {
+      //       type: 'CLIENT_NORMAL'
+      //     }
+      // },
+      {
+          model: User,
+          attributes: ['id', 'username', 'type'],
+          required: true,
+          where: {
+            type: 'COURIER'
+          }
+      },
+      {
+          model: Store,
+          attributes: ['id', 'name'],
+          required: true,
+          include: [{
+            model: Location,
+            attributes: ['id', 'name', 'longitude', 'latitude', 'imageUrl'],
+            required: true
+          }]
+      }]
+  });
+};

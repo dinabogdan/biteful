@@ -7,6 +7,7 @@ const database = require('./controllers/DatabaseController.js');
 const authenticationController = require('./controllers/AuthenticationController.js');
 const locationController = require('./controllers/LocationController.js');
 const storeController = require('./controllers/StoreController.js');
+const deliveryController = require('./controllers/DeliveryController.js');
 const middleware = require('./controllers/Middleware.js');
 
 const utils = require('./scripts/util.js');
@@ -27,6 +28,8 @@ app.get('/locations', locationController.getLocations);
 
 app.get('/stores', storeController.getAllStores);
 app.get('/stores/:storeId', storeController.getStoreById);
+
+app.get('/deliveries', deliveryController.getAllDeliveries);
 
 app.get('*', (req, res) => {
   res.send('Hello from the other side!');
