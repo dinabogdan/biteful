@@ -99,22 +99,6 @@ Delivery.belongsTo(Address, {
   foreignKey: 'addressId'
 });
 
-// User.hasMany(Delivery, {
-//   foreignKey: 'customerId'
-// });
-//
-// Delivery.belongsTo(User, {
-//     foreignKey: 'customerId'
-// });
-//
-// User.hasMany(Delivery, {
-//   foreignKey: 'courierId'
-// });
-//
-// Delivery.belongsTo(User, {
-//   foreignKey: 'courierId'
-// });
-
 Delivery.hasOne(User, {
   as: 'Customer',
   foreignKey: 'deliveryId'
@@ -230,5 +214,24 @@ module.exports.findDeliveries = function() {
           required: true
           }]
       }]
+  });
+};
+
+module.exports.findDeliveryById = function(deliveryId) {
+  return Delivery.find({
+    attributes: ['id'],
+    where: {
+      id: deliveryId
+    },
+    required: true,
+    include: [{
+       model: Store,
+       required: true,
+         include: [{
+         model: Location,
+         raw: true,
+         required: true
+       }]
+     }]
   });
 };

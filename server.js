@@ -30,6 +30,7 @@ app.get('/stores', storeController.getAllStores);
 app.get('/stores/:storeId', storeController.getStoreById);
 
 app.get('/deliveries', deliveryController.getAllDeliveries);
+app.get('/deliveries/:deliveryId', deliveryController.getDeliveryById);
 
 app.get('*', (req, res) => {
   res.send('Hello from the other side!');
