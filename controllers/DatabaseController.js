@@ -83,7 +83,7 @@ var Address = db.define('address', {
 
 var Delivery = db.define('delivery');
 
-Store.hasOne(Location, {
+Store.hasMany(Location, {
   foreignKey: 'storeId'
 });
 
@@ -211,6 +211,7 @@ module.exports.findDeliveries = function() {
           required: true,
           include: [{
           model: Location,
+          raw: false,
           required: true
           }]
       }]
