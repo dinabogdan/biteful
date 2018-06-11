@@ -226,9 +226,8 @@ module.exports.findDeliveries = function() {
           attributes: ['id', 'name'],
           required: true,
           include: [{
-            model: Location,
-            attributes: ['id', 'name', 'longitude', 'latitude', 'imageUrl'],
-            required: true
+          model: Location,
+          required: true
           }]
       }]
   });
