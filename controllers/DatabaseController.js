@@ -236,3 +236,7 @@ module.exports.findDeliveryById = function(deliveryId) {
      }]
   });
 };
+
+module.exports.createDelivery = function(delivery) {
+  return Delivery.create(delivery);
+};

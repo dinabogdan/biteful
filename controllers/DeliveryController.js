@@ -36,3 +36,19 @@ module.exports.getDeliveryById = function(req, res, next) {
      });
      return;
 };
+
+module.exports.addNewDelivery = function(req, res, next) {
+  if(util.isUndefined(req.body)) {
+    next(util.buildErrorResponse(400, 'The payload of the JSON is incorrect'));
+    return;
+  }
+  var delivery = req.body;
+  repo.createDelivery(delivery)
+      .then(function(delivery) {
+        res.status(200).send(util.buildOkResponse(delivery));
+      })
+      .catch(function(err) {
+        next(util.buildErrorResponse(500, 'Internal Server Error'));
+      });
+      return;
+};
