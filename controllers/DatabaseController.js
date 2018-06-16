@@ -134,6 +134,10 @@ module.exports.createUser = function(user) {
   return User.create(user);
 };
 
+module.exports.addAddress = function(address) {
+  return Address.create(address);
+};
+
 module.exports.findAllUsers = function(){
   return User.findAll();
 };

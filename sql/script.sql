@@ -7,32 +7,3 @@ insert into addresses (details, createdAt, updatedAt) values ('some details', NO
 insert into stores(name, logoUrl, pdfUrl, createdAt, updatedAt) values ('Store02', 'http://www.google.com', 'http://www.google.com', NOW(), NOW());
 insert into users (username,email, password, type, createdAt, updatedAt) values ('Dina', 'bogdan.dina03@gmail.com', 'passwd', 'CLIENT_NORMAL', NOW(), NOW());
 insert into users (username,email, password, type, createdAt, updatedAt) values ('Bogdan', 'bogdan.dina@gmail.com', 'passwd', 'COURIER', NOW(), NOW());
-
-
-
-SELECT `delivery`.`id`,
-        `address`.`id` AS `address.id`,
-        `address`.`details` AS `address.details`,
-        `Customer`.`id` AS `Customer.id`,
-        `Customer`.`username` AS `Customer.username`,
-        `Customer`.`type` AS `Customer.type`,
-        `Courier`.`id` AS `Courier.id`,
-        `Courier`.`username` AS `Courier.username`,
-        `Courier`.`type` AS `Courier.type`,
-        `store`.`id` AS `store.id`,
-        `store`.`name` AS `store.name`,
-        `store->location`.`id` AS `store.location.id`,
-        `store->location`.`name` AS `store.location.name`,
-        `store->location`.`longitude` AS `store.location.longitude`,
-        `store->location`.`latitude` AS `store.location.latitude`, 
-        `store->location`.`imageUrl` AS `store.location.imageUrl`
-            FROM `deliveries` AS `delivery`
-            INNER JOIN `addresses` AS `address`
-            ON `delivery`.`addressId` = `address`.`id`
-            INNER JOIN `users` AS `Customer`
-            ON `delivery`.`id` = `Customer`.`deliveryId` AND `Customer`.`type` = 'CLIENT_NORMAL'
-            INNER JOIN `users` AS `Courier` ON `delivery`.`id` = `Courier`.`deliveryId` AND `Courier`.`type` = 'COURIER'
-            INNER JOIN `stores` AS `store`
-            ON `delivery`.`storeId` = `store`.`id`
-            INNER JOIN `locations` AS `store->location`
-            ON `store`.`id` = `store->location`.`storeId`;

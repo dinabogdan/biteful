@@ -4,6 +4,22 @@ var util = require('../scripts/util.js');
 
 const passwordPattern = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 
+module.exports.completeSignup = function(req, res, next) {
+  if(util.isUndefined(req.body.details)){
+    next(util.buildErrorResponse(400, 'Wrong request body!'));
+    return;
+  }
+  var address = req.body;
+  repo.addAddress(address)
+      .then(function(address){
+        res.status(200).send(util.buildOkResponse({"message": "Succes Complete Signup"}));
+      })
+      .catch(function(err) {
+        next(util.buildErrorResponse(500, 'Internal server error'));
+      })
+      return;
+};
+
 module.exports.login = function(req, res, next) {
    if(util.isUndefined(req.body.email, req.body.password)) {
      next (util.buildErrorResponse(400, 'Wrong request body!'));

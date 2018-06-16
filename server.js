@@ -23,6 +23,7 @@ app.use(middleware.checkBody);
 
 app.post('/user/login', authenticationController.login);
 app.put('/user/signup', authenticationController.signup);
+app.put('/user/signup/complete', authenticationController.completeSignup);
 
 app.get('/users', authenticationController.users);
 
