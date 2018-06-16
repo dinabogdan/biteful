@@ -23,7 +23,7 @@ module.exports.login = function(req, res, next) {
       }
 
       if(userFound !==null && user.password === userFound.password) {
-        res.status(200).send(util.buildOkResponse({'message': 'Successfull login!'}));
+        res.status(200).send(util.buildOkResponse({'usertype': userFound.type}));
       }
     })
     .catch(function(err) {
