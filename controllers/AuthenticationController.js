@@ -23,7 +23,7 @@ module.exports.login = function(req, res, next) {
       }
 
       if(userFound !==null && user.password === userFound.password) {
-        res.status(200).send(util.buildOkResponse({'usertype': userFound.type}));
+        res.send({'usertype': userFound.type});
       }
     })
     .catch(function(err) {
@@ -31,6 +31,17 @@ module.exports.login = function(req, res, next) {
     });
 
     return;
+};
+
+module.exports.users = function(req, res, next) {
+  repo.findAllUsers()
+      .then(function (users) {
+        res.status(200).send(users);
+      })
+      .catch(function (err) {
+        next(util.buildErrorResponse(500, 'Internal server error'));
+      });
+      return;
 };
 
 module.exports.signup = function(req, res, next) {
@@ -47,7 +58,6 @@ module.exports.signup = function(req, res, next) {
     return;
   }
   console.log(newUser);
-
 
   repo.findUserByEmail(newUser.email)
       .then(function (user) {

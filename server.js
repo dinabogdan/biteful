@@ -24,6 +24,8 @@ app.use(middleware.checkBody);
 app.post('/user/login', authenticationController.login);
 app.put('/user/signup', authenticationController.signup);
 
+app.get('/users', authenticationController.users);
+
 app.get('/locations', locationController.getLocations);
 
 app.get('/stores', storeController.getAllStores);
