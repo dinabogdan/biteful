@@ -119,6 +119,14 @@ Delivery.belongsTo(Store, {
   foreignKey: 'storeId'
 });
 
+Address.hasOne(User, {
+  foreignKey: 'addressId'
+})
+
+User.belongsTo(Address, {
+  foreignKey: 'addressId'
+});
+
 module.exports.createDb = function() {
   {force: true}
   db.sync()
@@ -146,7 +154,11 @@ module.exports.findUserByEmail = function(userEmail) {
   return User.find({
     where: {
       email: userEmail
-    }
+    },
+    include: [{
+      model: Address,
+      required: true
+    }]
   });
 };
 

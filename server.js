@@ -26,6 +26,7 @@ app.put('/user/signup', authenticationController.signup);
 app.put('/user/signup/complete', authenticationController.completeSignup);
 
 app.get('/users', authenticationController.users);
+app.post('/users/byEmail', authenticationController.findUserByEmail);
 
 app.get('/locations', locationController.getLocations);
 

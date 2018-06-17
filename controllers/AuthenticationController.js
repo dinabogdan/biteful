@@ -49,6 +49,35 @@ module.exports.login = function(req, res, next) {
     return;
 };
 
+module.exports.findUserByEmail = function(req, res, next) {
+  if(util.isUndefined(req.body.email, req.body.password)) {
+    next (util.buildErrorResponse(400, 'Wrong request body!'));
+    return;
+  }
+  var user = req.body;
+  repo.findUserByEmail(user.email)
+    .then(function(userFound) {
+      if(userFound === null) {
+        res.status(401).send(util.buildErrorResponse(401, 'Wrong email address!'));
+        return;
+      }
+
+      if(user.password !== userFound.password) {
+        res.status(401).send(util.buildErrorResponse(401, 'Wrong password!'));
+        return;
+      }
+
+      if(userFound !==null && user.password === userFound.password) {
+        res.status(200).send(userFound);
+      }
+    })
+    .catch(function(err) {
+      next(util.buildErrorResponse(500, 'Internal server error'));
+    });
+
+    return;
+};
+
 module.exports.users = function(req, res, next) {
   repo.findAllUsers()
       .then(function (users) {
