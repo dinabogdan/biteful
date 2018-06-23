@@ -39,7 +39,10 @@ module.exports.login = function(req, res, next) {
       }
 
       if(userFound !==null && user.password === userFound.password) {
-        res.send({'usertype': userFound.type});
+        res.send({
+                  'id': userFound.id,
+                  'usertype': userFound.type
+                });
       }
     })
     .catch(function(err) {
