@@ -99,17 +99,23 @@ Delivery.belongsTo(Address, {
   foreignKey: 'addressId'
 });
 
-Delivery.hasOne(User, {
+User.hasMany(Delivery, {
+  foreignKey: 'customerId'
+});
+
+User.hasMany(Delivery, {
+    foreignKey: 'courierId'
+});
+
+Delivery.belongsTo(User, {
   as: 'Customer',
-  foreignKey: 'deliveryId'
+  foreignKey: 'customerId'
 });
 
-Delivery.hasOne(User, {
-    as: 'Courier',
-    foreignKey: 'deliveryId'
+Delivery.belongsTo(User, {
+  as: 'Courier',
+  foreignKey: 'courierId'
 });
-
-User.belongsTo(Delivery);
 
 Store.hasMany(Delivery, {
   foreignKey: 'storeId'
@@ -206,13 +212,15 @@ module.exports.findDeliveries = function() {
           model: Address,
           required: true,
           attributes: ['id', 'details']
-      },
+      }
+      ,
       {
           model: User,
           as: 'Customer',
           attributes: ['id', 'username', 'type'],
           required: true,
           where: {
+            //id: Delivery.customerId,
             type: 'CLIENT_NORMAL'
           }
       },
@@ -222,6 +230,7 @@ module.exports.findDeliveries = function() {
           attributes: ['id', 'username', 'type'],
           required: true,
           where: {
+            //id: Delivery.courierId,
             type: 'COURIER'
           }
       },
@@ -246,14 +255,38 @@ module.exports.findDeliveryById = function(deliveryId) {
     },
     required: true,
     include: [{
-       model: Store,
-       required: true,
-         include: [{
-         model: Location,
-         raw: true,
-         required: true
-       }]
-     }]
+        model: Address,
+        required: true,
+        attributes: ['id', 'details']
+    },
+    {
+        model: User,
+        as: 'Customer',
+        attributes: ['id', 'username', 'type'],
+        required: true,
+        where: {
+          type: 'CLIENT_NORMAL'
+        }
+    },
+    {
+        model: User,
+        as: 'Courier',
+        attributes: ['id', 'username', 'type'],
+        required: true,
+        where: {
+          type: 'COURIER'
+        }
+    },
+    {
+        model: Store,
+        attributes: ['id', 'name'],
+        required: true,
+        include: [{
+        model: Location,
+        raw: false,
+        required: true
+        }]
+    }]
   });
 };
 

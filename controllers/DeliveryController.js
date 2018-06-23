@@ -4,6 +4,7 @@ var repo = require('./DatabaseController.js');
 var util = require('../scripts/util.js');
 
 module.exports.getAllDeliveries = function(req, res, next) {
+  console.log('A intrat aici')
   repo.findDeliveries()
       .then(function (deliveries) {
          res.status(200).send(deliveries);
