@@ -34,6 +34,7 @@ app.get('/stores', storeController.getAllStores);
 app.get('/stores/:storeId', storeController.getStoreById);
 
 app.get('/deliveries', deliveryController.getAllDeliveries);
+app.get('/user/deliveries', deliveryController.getDeliveriesByUserIdAndUserType);
 app.get('/deliveries/:deliveryId', deliveryController.getDeliveryById);
 app.put('/deliveries', deliveryController.addNewDelivery);
 

@@ -220,7 +220,6 @@ module.exports.findDeliveries = function() {
           attributes: ['id', 'username', 'type'],
           required: true,
           where: {
-            //id: Delivery.customerId,
             type: 'CLIENT_NORMAL'
           }
       },
@@ -230,7 +229,6 @@ module.exports.findDeliveries = function() {
           attributes: ['id', 'username', 'type'],
           required: true,
           where: {
-            //id: Delivery.courierId,
             type: 'COURIER'
           }
       },
@@ -245,6 +243,78 @@ module.exports.findDeliveries = function() {
           }]
       }]
   });
+};
+
+module.exports.findDeliveriesByUserIdAndType = function(userId, userType) {
+  if(userType === 'COURIER') {
+    return Delivery.findAll({
+      attributes: ['id'],
+      include: [{
+        model: Address,
+        required: true,
+        attributes: ['id', 'details']
+      },
+      {
+         model: User,
+         as: 'Customer',
+         attributes: ['id', 'username', 'type'],
+         required: true
+      },
+      {
+        model: User,
+        as: 'Courier',
+        attributes: ['id', 'username', 'type'],
+        required: true,
+        where: {
+          id: userId
+        }
+      },
+      {
+        model: Store,
+        attributes: ['id', 'name'],
+        required: true,
+        include: [{
+          model: Location,
+          raw: false,
+          required: true
+        }]
+      }]
+    });
+  } else if(userType === 'CLIENT_NORMAL') {
+    return Delivery.findAll({
+      attributes: ['id'],
+      required: true,
+      include: [{
+        model: Address,
+        required: true,
+        attributes: ['id', 'details']
+      },
+      {
+        model: User,
+        as: 'Customer',
+        attributes: ['id', 'username', 'type'],
+        required: true,
+        where: {
+          id: userId
+        }
+      },
+      {
+        model: User,
+        attributes: ['id', 'username', 'type'],
+        required: true
+      },
+      {
+        mode: Store,
+        attributes: ['id', 'name'],
+        required: true,
+        include: [{
+          model: Location,
+          raw: false,
+          required: true
+        }]
+      }]
+    })
+  }
 };
 
 module.exports.findDeliveryById = function(deliveryId) {
