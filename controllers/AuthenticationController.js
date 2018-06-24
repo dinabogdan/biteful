@@ -37,7 +37,6 @@ module.exports.login = function(req, res, next) {
         res.status(401).send(util.buildErrorResponse(401, 'Wrong password!'));
         return;
       }
-      console.log(userFound);
       if(userFound !==null && user.password === userFound.password) {
         res.send({
                   'id': userFound.id,

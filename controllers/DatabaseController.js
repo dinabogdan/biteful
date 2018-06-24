@@ -205,6 +205,39 @@ module.exports.findAddresses = function() {
   });
 };
 
+module.exports.findAllDeliveriesWithoutCourier = function() {
+  return Delivery.findAll({
+    attributes: ['id'],
+    where: {
+      courierId: null
+    },
+    include: [{
+      model: Address,
+      required: true,
+      attributes: ['id', 'details']
+    },
+    {
+        model: User,
+        as: 'Customer',
+        attributes: ['id', 'username', 'type'],
+        required: true,
+        where: {
+          type: 'CLIENT_NORMAL'
+        }
+    },
+    {
+      model: Store,
+      attributes: ['id', 'name'],
+      required: true,
+      include: [{
+        model: Location,
+        raw: false,
+        required: true
+      }]
+    }]
+  });
+};
+
 module.exports.findDeliveries = function() {
   return Delivery.findAll({
       attributes: ['id'],
@@ -212,8 +245,7 @@ module.exports.findDeliveries = function() {
           model: Address,
           required: true,
           attributes: ['id', 'details']
-      }
-      ,
+      },
       {
           model: User,
           as: 'Customer',

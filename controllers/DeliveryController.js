@@ -37,6 +37,18 @@ module.exports.getDeliveryById = function(req, res, next) {
      return;
 };
 
+module.exports.findAllDeliveriesWithoutCourier = function(req, res, next) {
+  repo.findAllDeliveriesWithoutCourier()
+      .then(function(deliveries) {
+        res.send(deliveries);
+      })
+      .catch(function(err) {
+        next(util.buildErrorResponse(500, 'Internal Server Error'));
+        return;
+      });
+    return;
+};
+
 module.exports.getDeliveriesByUserIdAndUserType = function(req, res, next) {
   var userId = req.query.userId;
   var userType = req.query.userType;
