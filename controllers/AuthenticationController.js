@@ -49,7 +49,6 @@ module.exports.login = function(req, res, next) {
     .catch(function(err) {
       next(util.buildErrorResponse(500, 'Internal server error'));
     });
-
     return;
 };
 
