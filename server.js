@@ -37,6 +37,7 @@ app.get('/deliveries', deliveryController.getAllDeliveries);
 app.get('/user/deliveries', deliveryController.getDeliveriesByUserIdAndUserType);
 app.get('/deliveries/:deliveryId', deliveryController.getDeliveryById);
 app.put('/deliveries', deliveryController.addNewDelivery);
+app.post('/deliveries', deliveryController.assignDeliveryToCourier);
 app.get('/unset-deliveries', deliveryController.findAllDeliveriesWithoutCourier);
 
 app.get('*', (req, res) => {

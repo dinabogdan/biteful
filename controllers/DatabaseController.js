@@ -400,3 +400,7 @@ module.exports.findDeliveryById = function(deliveryId) {
 module.exports.createDelivery = function(delivery) {
   return Delivery.create(delivery);
 };
+
+module.exports.updateDelivery = function(delivery) {
+  return Delivery.updateAttributes(delivery);
+}

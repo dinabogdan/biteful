@@ -78,6 +78,24 @@ module.exports.getDeliveriesByUserIdAndUserType = function(req, res, next) {
       return;
 };
 
+module.exports.assignDeliveryToCourier = function(req, res, next ) {
+  if(util.isUndefined(req.body)) {
+    next(util.buildErrorResponse(400, 'The payload of the JSON is incorrect'));
+    return;
+  }
+
+  var deliveryToUpdate = req.body;
+  repo.updateDelivery(deliveryToUpdate)
+      .then(function (deliveryToUpdate) {
+        res.status(200).send(util.buildOkResponse(deliveryToUpdate));
+      })
+      .catch(function(err) {
+        next(util.buildErrorResponse(500, 'Internal Server Error'));
+        return;
+      });
+    return;
+};
+
 module.exports.addNewDelivery = function(req, res, next) {
   if(util.isUndefined(req.body)) {
     next(util.buildErrorResponse(400, 'The payload of the JSON is incorrect'));
