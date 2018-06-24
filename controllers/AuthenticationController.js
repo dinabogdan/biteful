@@ -9,14 +9,39 @@ module.exports.completeSignup = function(req, res, next) {
     next(util.buildErrorResponse(400, 'Wrong request body!'));
     return;
   }
-  var address = req.body;
+
+  if(util.isUndefined(req.body.email)) {
+    next(util.buildErrorResponse(400, 'Wrong request body!'));
+    return;
+  }
+
+  var address = {'details': req.body.details};
   repo.addAddress(address)
       .then(function(address){
-        res.status(200).send(util.buildOkResponse({"message": "Succes Complete Signup"}));
+        //res.status(200).send(util.buildOkResponse({"message": "Succes Complete Signup"}));
+         repo.findOnlyUserByEmail(req.body.email)
+             .then(function (user) {
+               user.addressId = address.id;
+               var newUser = user;
+               repo.updateUser(newUser)
+                   .then(function (newUser) {
+                     console.log(' a intrat aici')
+                      res.status(200).send(util.buildOkResponse({"message": "Succes Complete Signup"}));
+                      return;
+                   })
+                   .catch(function(err) {
+                      next(util.buildErrorResponse(500, 'Internal server error'));
+                   })
+             })
+             .catch(function(err) {
+               next(util.buildErrorResponse(500, 'Internal server error'));
+             });
       })
       .catch(function(err) {
         next(util.buildErrorResponse(500, 'Internal server error'));
-      })
+      });
+
+
       return;
 };
 

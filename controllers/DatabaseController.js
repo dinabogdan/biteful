@@ -173,6 +173,14 @@ module.exports.findUserByEmail = function(userEmail) {
   });
 };
 
+module.exports.findOnlyUserByEmail = function(userEmail) {
+  return User.find({
+    where: {
+      email: userEmail
+    }
+  });
+};
+
 module.exports.findLocations = function() {
   return Location.findAll({
     attributes: ['id', 'name', 'longitude', 'latitude', 'imageUrl']
@@ -402,5 +410,9 @@ module.exports.createDelivery = function(delivery) {
 };
 
 module.exports.updateDelivery = function(delivery) {
-  return Delivery.updateAttributes(delivery);
-}
+  return delivery.updateAttributes(delivery);
+};
+
+module.exports.updateUser = function(user) {
+  return user.updateAttributes({'addressId': user.addressId});
+};
