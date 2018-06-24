@@ -18,14 +18,12 @@ module.exports.completeSignup = function(req, res, next) {
   var address = {'details': req.body.details};
   repo.addAddress(address)
       .then(function(address){
-        //res.status(200).send(util.buildOkResponse({"message": "Succes Complete Signup"}));
          repo.findOnlyUserByEmail(req.body.email)
              .then(function (user) {
                user.addressId = address.id;
                var newUser = user;
                repo.updateUser(newUser)
                    .then(function (newUser) {
-                     console.log(' a intrat aici')
                       res.status(200).send(util.buildOkResponse({"message": "Succes Complete Signup"}));
                       return;
                    })
