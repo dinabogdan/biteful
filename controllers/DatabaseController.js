@@ -81,7 +81,12 @@ var Address = db.define('address', {
   }
 });
 
-var Delivery = db.define('delivery');
+var Delivery = db.define('delivery', {
+    details: {
+      allowNull: false,
+      type: Sequelize.STRING
+    }
+});
 
 Store.hasMany(Location, {
   foreignKey: 'storeId'
@@ -207,7 +212,7 @@ module.exports.findAddresses = function() {
 
 module.exports.findAllDeliveriesWithoutCourier = function() {
   return Delivery.findAll({
-    attributes: ['id'],
+    attributes: ['id', 'details'],
     where: {
       courierId: null
     },
@@ -240,7 +245,7 @@ module.exports.findAllDeliveriesWithoutCourier = function() {
 
 module.exports.findDeliveries = function() {
   return Delivery.findAll({
-      attributes: ['id'],
+      attributes: ['id', 'details'],
       include: [{
           model: Address,
           required: true,
@@ -280,7 +285,7 @@ module.exports.findDeliveries = function() {
 module.exports.findDeliveriesByUserIdAndType = function(userId, userType) {
   if(userType === 'COURIER') {
     return Delivery.findAll({
-      attributes: ['id'],
+      attributes: ['id', 'details'],
       include: [{
         model: Address,
         required: true,
@@ -314,7 +319,7 @@ module.exports.findDeliveriesByUserIdAndType = function(userId, userType) {
     });
   } else if(userType === 'CLIENT_NORMAL') {
     return Delivery.findAll({
-      attributes: ['id'],
+      attributes: ['id', 'details'],
       required: true,
       include: [{
         model: Address,
@@ -351,7 +356,7 @@ module.exports.findDeliveriesByUserIdAndType = function(userId, userType) {
 
 module.exports.findDeliveryById = function(deliveryId) {
   return Delivery.find({
-    attributes: ['id'],
+    attributes: ['id', 'details'],
     where: {
       id: deliveryId
     },

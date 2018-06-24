@@ -65,7 +65,6 @@ module.exports.getDeliveriesByUserIdAndUserType = function(req, res, next) {
 
   repo.findDeliveriesByUserIdAndType(userId, userType)
       .then(function(deliveries) {
-        console.log('A intrat aici');
         if(deliveries === null || util.isUndefined(deliveries)) {
           res.status(404).send(util.buildErrorResponse(404, 'No deliveries found for the specified parameters!'));
           return;
@@ -84,7 +83,28 @@ module.exports.addNewDelivery = function(req, res, next) {
     next(util.buildErrorResponse(400, 'The payload of the JSON is incorrect'));
     return;
   }
-  var delivery = req.body;
+    var delivery = req.body;
+
+  if(util.isUndefined(delivery.details)) {
+    next(util.buildErrorResponse(400, 'The details of the delivery are mandatory'));
+    return;
+  }
+
+  if(util.isUndefined(delivery.addressId)) {
+    next(util.buildErrorResponse(400, 'The addressId of the delivery is mandatory'));
+    return;
+  }
+
+  if(util.isUndefined(delivery.customerId)) {
+    next(util.buildErrorResponse(400, 'The customerId of the delivery is mandatory'));
+    return;
+  }
+
+  if(util.isUndefined(delivery.storeId)) {
+    next(util.buildErrorResponse(400, 'The storeId of the delivery is mandatory'));
+    return;
+  }
+
   repo.createDelivery(delivery)
       .then(function(delivery) {
         res.status(200).send(util.buildOkResponse(delivery));
