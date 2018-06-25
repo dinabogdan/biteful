@@ -5,5 +5,8 @@ insert into locations(name, longitude, latitude, imageUrl, createdAt, updatedAt)
 insert into deliveries(createdAt, updatedAt, addressId, customerId, courierId, storeId) values (NOW(), NOW(), 1, 1, 2, 1);
 insert into addresses (details, createdAt, updatedAt) values ('some details', NOW(), NOW());
 insert into stores(name, logoUrl, pdfUrl, createdAt, updatedAt) values ('Store02', 'http://www.google.com', 'http://www.google.com', NOW(), NOW());
+insert into stores(name, logoUrl, pdfUrl, createdAt, updatedAt) values ('Store01', 'http://www.google.com', 'http://www.google.com', NOW(), NOW());
+insert into stores(name, logoUrl, pdfUrl, createdAt, updatedAt) values ('Store03', 'http://www.google.com', 'http://www.google.com', NOW(), NOW());
+insert into stores(name, logoUrl, pdfUrl, createdAt, updatedAt) values ('Store04', 'http://www.google.com', 'http://www.google.com', NOW(), NOW());
 insert into users (username,email, password, type, createdAt, updatedAt) values ('Dina', 'bogdan.dina03@gmail.com', 'passwd', 'CLIENT_NORMAL', NOW(), NOW());
 insert into users (username,email, password, type, createdAt, updatedAt) values ('Bogdan', 'bogdan.dina@gmail.com', 'passwd', 'COURIER', NOW(), NOW());
