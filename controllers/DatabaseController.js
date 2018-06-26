@@ -362,6 +362,15 @@ module.exports.findDeliveriesByUserIdAndType = function(userId, userType) {
   }
 };
 
+module.exports.findSingleDeliveryById = function(deliveryId) {
+  return Delivery.find({
+    attributes: ['id', 'details', 'addressId', 'customerId', 'courierId', 'storeId'],
+    where: {
+      id: deliveryId
+    }
+  });
+};
+
 module.exports.findDeliveryById = function(deliveryId) {
   return Delivery.find({
     attributes: ['id', 'details'],
@@ -410,7 +419,7 @@ module.exports.createDelivery = function(delivery) {
 };
 
 module.exports.updateDelivery = function(delivery) {
-  return delivery.updateAttributes(delivery);
+  return delivery.updateAttributes({'courierId': delivery.courierId});
 };
 
 module.exports.updateUser = function(user) {

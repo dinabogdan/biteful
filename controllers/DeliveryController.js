@@ -85,9 +85,20 @@ module.exports.assignDeliveryToCourier = function(req, res, next ) {
   }
 
   var deliveryToUpdate = req.body;
-  repo.updateDelivery(deliveryToUpdate)
-      .then(function (deliveryToUpdate) {
-        res.status(200).send(util.buildOkResponse(deliveryToUpdate));
+
+  repo.findSingleDeliveryById(deliveryToUpdate.id)
+      .then(function(delivery) {
+        delivery.courierId = deliveryToUpdate.courierId;
+        var updatedDelivery = delivery;
+        repo.updateDelivery(updatedDelivery)
+            .then(function(updatedDelivery) {
+              res.status(200).send(updatedDelivery);
+              return;
+            })
+            .catch(function (err) {
+              next(util.buildErrorResponse(500, 'Internal Server Error'));
+              return;
+            })
       })
       .catch(function(err) {
         next(util.buildErrorResponse(500, 'Internal Server Error'));
