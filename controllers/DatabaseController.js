@@ -335,21 +335,22 @@ module.exports.findDeliveriesByUserIdAndType = function(userId, userType) {
         attributes: ['id', 'details']
       },
       {
-        model: User,
-        as: 'Customer',
-        attributes: ['id', 'username', 'type'],
-        required: true,
-        where: {
-          id: userId
-        }
+         model: User,
+         as: 'Customer',
+         attributes: ['id', 'username', 'type'],
+         required: true,
+         where: {
+           id: userId
+         }
       },
       {
         model: User,
+        as: 'Courier',
         attributes: ['id', 'username', 'type'],
         required: true
       },
       {
-        mode: Store,
+        model: Store,
         attributes: ['id', 'name'],
         required: true,
         include: [{
@@ -358,7 +359,7 @@ module.exports.findDeliveriesByUserIdAndType = function(userId, userType) {
           required: true
         }]
       }]
-    })
+    });
   }
 };
 
