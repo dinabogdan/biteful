@@ -346,8 +346,7 @@ module.exports.findDeliveriesByUserIdAndType = function(userId, userType) {
       {
         model: User,
         as: 'Courier',
-        attributes: ['id', 'username', 'type'],
-        required: true
+        attributes: ['id', 'username', 'type']
       },
       {
         model: Store,
